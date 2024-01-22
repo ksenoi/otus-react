@@ -1,17 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import './App.scss';
+import { Navigation } from './navigation/Navigation';
+import { Layout, Menu, MenuProps } from 'antd'
+
+import { BrowserRouter, Link } from 'react-router-dom';
+import MainMenu from './components/MainMenu/MainMenu';
+import { Provider } from 'react-redux';
+import { store } from './store';
+
+
+
+const { Header, Content, Footer } = Layout;
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Текст писать тут
-        </p>
-      </header>
-    </div>
+
+    <BrowserRouter>
+      <Provider store={store}>
+        <Layout>
+          <Header><MainMenu /></Header>
+          <Content><Navigation /> </Content>
+          <Footer>footer</Footer>
+        </Layout>
+      </Provider>
+    </BrowserRouter>
+
+
+
   );
 }
 
