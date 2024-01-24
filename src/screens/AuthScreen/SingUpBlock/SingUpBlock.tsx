@@ -8,6 +8,7 @@ import { SignInBody, SignUpBody } from 'src/server.types';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 
+
 export const SingUpBlock = () => {
 
 
@@ -32,11 +33,10 @@ export const SingUpBlock = () => {
     console.log('Failed:', errorInfo);
   };
 
-  const onClickExit = () => dispatch(tokenActions.logout());
-
+  
 
   return (
-
+    
     <Form
       name="basic"
       labelCol={{ span: 8 }}

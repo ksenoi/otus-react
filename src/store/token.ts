@@ -22,7 +22,8 @@ export const { reducer: token } = tokenSlice;
 
 export const tokenSelectors = {
   get: (state: RootState): RootState['token'] => state.token && state.token.token,
-  error: (state: RootState): RootState['token'] => state.token && state.token.error
+  error: (state: RootState): RootState['token'] => state.token && state.token.error,
+  getPofile: (state: RootState): RootState['token'] => state.token && state.token.profile
 
 };
 

@@ -1,12 +1,33 @@
 import { Menu, MenuProps } from 'antd';
 import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { tokenSelectors } from 'src/store/token';
 
 
 
 
 
 export const MainMenu: FC = () => {
+
+    const token = useSelector(tokenSelectors.get)
+
+    const profileLink = {
+        label: (
+            <Link to="/profile" >
+                Профиль
+            </Link>
+        ),
+        key: 'profile',
+    }
+    const authLink = {
+        label: (
+            <Link to="/auth" >
+                Вход
+            </Link>
+        ),
+        key: 'auth',
+    }
 
     const items: MenuProps['items'] = [
         {
@@ -25,22 +46,9 @@ export const MainMenu: FC = () => {
             ),
             key: 'category',
         },
-        {
-            label: (
-                <Link to="/profile" >
-                    Профиль
-                </Link>
-            ),
-            key: 'profile',
-        },
-        {
-            label: (
-                <Link to="/auth" >
-                    Вход
-                </Link>
-            ),
-            key: 'auth',
-        },
+        
+          token?profileLink:authLink
+        
 
     ]
 
