@@ -6,6 +6,7 @@ import { singInTokenThunk, tokenActions, tokenSelectors } from 'src/store/token'
 import { RootDispatch } from 'src/store';
 import { SignInBody } from 'src/server.types';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { NavigationState } from 'src/navigation/types';
 
 
 
@@ -33,13 +34,18 @@ export const SingInBlock = () => {
     console.log('Failed:', errorInfo);
   };
 
-  const onClickExit = ()=>dispatch(tokenActions.logout());
+  const navigate = useNavigate();
+  const location = useLocation();
 
+  useEffect(()=>{
+
+      console.log(location.state);
+      token&&navigate((location.state as NavigationState)?.from || '/');
+
+  },token)
 
   return (
-    token?<Button onClick={onClickExit}>
-      Выйти
-      </Button>:
+    
     <Form
     name="basic"
     labelCol={{ span: 8 }}
