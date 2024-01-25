@@ -1,13 +1,20 @@
 import React, { FC } from 'react';
+import HomeCategory from '../HomeCategory/HomeCategory';
+import HomeContent from '../HomeContent/HomeContent';
+import './Home.scss';
 
-import s from './Home.scss';
-
-export const ProfileScreen: FC = () => {
-  return (
+export const HomeScreen: FC = () => {
+   return (
     <div>
-       <h2>'Домашняя сраница'</h2>
-    </div>
+      <div className="left">
+        <HomeCategory/>
+      </div>
+
+      <div className="right">
+        <HomeContent/>
+      </div>
+    </div> 
   );
 };
 
-export default ProfileScreen;
+export default HomeScreen;
