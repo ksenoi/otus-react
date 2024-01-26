@@ -1,0 +1,23 @@
+.sort__list {
+  margin: 10px 40px 10px 40px;
+}
+
+.sort__item {
+  align-items: center;
+  background-color: #cccbcb;
+  border-radius: 17px;
+  display: inline-flex;
+  font-size: 14px;
+  height: 34px;
+  margin: 8px 8px 0 0;
+  padding: 0 12px;
+  white-space: nowrap;
+}
+
+.sort__item__link {
+  margin: 0 12px 0 0;
+  color: #333;
+  text-decoration: none;  
+  transition-duration: .3s;
+  transition-property: color;  
+}

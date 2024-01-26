@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, memo } from 'react'
 import './ProductTile.scss'
 import { Product } from './types';
 
@@ -6,7 +6,9 @@ type ProductTileProps = {
   product: Product;
 }
 
-export const ProductTile: FC<ProductTileProps> = ({product}) => {
+export const ProductTile: FC<ProductTileProps> = memo(({product}) => {
+  console.log('ProductTile');
+
   return (
     <div className='productshort'>
         <div className='productshort__imgBox'>
@@ -32,4 +34,4 @@ export const ProductTile: FC<ProductTileProps> = ({product}) => {
         </div>
     </div>
   );
-}
+});

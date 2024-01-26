@@ -1,20 +1,25 @@
-import React, { FC } from 'react';
-import HomeCategory from '../HomeCategory/HomeCategory';
-import HomeContent from '../HomeContent/HomeContent';
+import React, { FC, useState, useEffect, useCallback } from 'react';
+import {HomeCategory} from '../HomeCategory/HomeCategory';
+import {HomeContent} from '../HomeContent/HomeContent';
 import './Home.scss';
 
-export const HomeScreen: FC = () => {
-   return (
+export const HomeScreen = () => {
+  const [category, setCategory] = useState(null);
+
+  console.log(`Home`);  
+
+  const handleCategory = useCallback((id: number) => {
+    setCategory(id);
+  }, [])
+
+  return (
     <div>
       <div className="left">
-        <HomeCategory/>
+        <HomeCategory handleCategory={handleCategory}/>
       </div>
-
       <div className="right">
-        <HomeContent/>
+        <HomeContent count={category}></HomeContent>
       </div>
     </div> 
   );
 };
-
-export default HomeScreen;
