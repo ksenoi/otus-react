@@ -1,20 +1,15 @@
-import React, { FC, useState, useEffect, memo} from 'react';
+import React, {memo} from 'react';
 import './HomeCategory.scss';
 import { List } from 'src/components/List/List';
-import { myCustomFetch } from 'src/client/myCustomFetch';
-import { CategoriesResponse } from 'src/components/Category/types';
+import { Category } from 'src/components/Category/types';
 
 type HomeCategoryProps = {
-  handleCategory: Function
+  data: Category[]
+  handleCategory: (category: Category) => void
 }
 
-export const HomeCategory: FC<HomeCategoryProps> = memo(({handleCategory}) => {
-    const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    myCustomFetch<CategoriesResponse>('categories')
-    .then(x => setCategories(x.data));
-  }, [myCustomFetch]);  
+export const HomeCategory = memo<HomeCategoryProps>(({data, handleCategory}) => {
+  if (!data?.length) return null;
 
   return (
     <div>
@@ -22,9 +17,11 @@ export const HomeCategory: FC<HomeCategoryProps> = memo(({handleCategory}) => {
        <hr/>
        <List>
         {
-          categories.map(({name}, index) => 
-          <li className='category' key={index} onClick={() => handleCategory(index)}>{name}</li>)}
+          data.map((item, index) => 
+          <li className='category' key={index} onClick={() => handleCategory(item)}>{item.name}</li>)}
        </List>
     </div>
   );
 });
+
+HomeCategory.displayName = 'HomeCategory';

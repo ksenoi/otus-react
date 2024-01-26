@@ -7,8 +7,6 @@ type ProductTileProps = {
 }
 
 export const ProductTile: FC<ProductTileProps> = memo(({product}) => {
-  console.log('ProductTile');
-
   return (
     <div className='productshort'>
         <div className='productshort__imgBox'>

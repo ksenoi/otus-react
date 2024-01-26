@@ -1,4 +1,56 @@
 import { URL } from './config';
+import React, { useState, useEffect, useCallback, useRef} from 'react';
+
+export const useLazyCustomFetch = <T extends unknown>(): [(input: string, init?: RequestInit) 
+  => () => void, {data: T, loading: boolean, error: unknown}] => {
+  const [data, setData] = useState<T>();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const controller = useRef<AbortController>();
+
+  const query = useCallback((input: string, init?: RequestInit) => {
+    controller.current = new AbortController();
+    setLoading(true);
+
+    myCustomFetch<T>(input, {signal: controller.current.signal, ...init})
+      .then(x => !controller.current.signal.aborted && setData(x))
+      .finally(() => !controller.current.signal.aborted && setLoading(false))
+      .catch(e => !controller.current.signal.aborted && setError(e))
+    return () => {
+      controller.current.abort();
+    }}, []);
+
+    useEffect(() => {
+
+      return () => {
+        controller.current.abort();
+      }
+    }, []);
+
+    return [query, {data, loading, error}];
+}
+
+export const useCustomFetch = <T extends unknown>(input: string, init?: RequestInit) => {
+  const [data, setData] = useState<T>();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    setLoading(true);
+
+    myCustomFetch<T>(input, {signal: controller.signal, ...init})
+      .then(x => !controller.signal.aborted && setData(x))
+      .finally(() => !controller.signal.aborted && setLoading(false))
+      .catch(e => !controller.signal.aborted && setError(e))
+    return () => {
+      controller.abort();
+    }
+  }, []);
+  
+  return {data, loading, error};
+}
 
 export const myCustomFetch = <T = Response>(input: string, init?: RequestInit): Promise<T> =>
   fetch(`${URL}${input}`, init).then(async (res) => {
