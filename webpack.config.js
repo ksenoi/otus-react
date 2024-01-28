@@ -15,6 +15,7 @@ module.exports = (_, args) => {
     devtool: 'source-map',
     context: src,
     devServer: {
+      allowedHosts: 'all',
       open: true,
       port,
       hot: true,
@@ -67,11 +68,7 @@ module.exports = (_, args) => {
         },
         {
           test: /\.s[ac]ss$/i,
-          use: [
-            { loader: "style-loader" },
-            { loader: "css-loader" },
-            { loader: "sass-loader" }
-          ],
+          use: [{ loader: 'style-loader' }, { loader: 'css-loader' }, { loader: 'sass-loader' }],
         },
       ],
     },

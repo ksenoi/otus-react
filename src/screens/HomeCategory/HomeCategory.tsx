@@ -1,27 +1,27 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, {memo} from 'react';
 import './HomeCategory.scss';
 import { List } from 'src/components/List/List';
-import { myCustomFetch } from 'src/client/myCustomFetch';
-import { CategoriesResponse } from 'src/components/Category/types';
+import { Category } from 'src/components/Category/types';
 
-export const HomeCategory: FC = () => {
-  const [categories, setCategories] = useState([]);
+type HomeCategoryProps = {
+  data: Category[]
+  handleCategory: (category: Category) => void
+}
 
-  useEffect(() => {
-    myCustomFetch<CategoriesResponse>('categories')
-      .then(x => setCategories(x.data));
-  }, []);  
+export const HomeCategory = memo<HomeCategoryProps>(({data, handleCategory}) => {
+  if (!data?.length) return null;
 
   return (
     <div>
        <h2>Категории</h2>
        <hr/>
        <List>
-        {categories.map(({name}, index) => 
-          <li className='category' key={index}>{name}</li>)}
+        {
+          data.map((item, index) => 
+          <li className='category' key={index} onClick={() => handleCategory(item)}>{item.name}</li>)}
        </List>
     </div>
   );
-};
+});
 
-export default HomeCategory;
+HomeCategory.displayName = 'HomeCategory';
