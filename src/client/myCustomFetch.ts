@@ -66,6 +66,7 @@ export const myCustomFetch = <T = Response>(input: string, init?: RequestInit): 
     return Promise.reject(await res.json());
   });}
 
+
 export const myCustomXHR = <T = Response>(
   body: FormData,
   {
