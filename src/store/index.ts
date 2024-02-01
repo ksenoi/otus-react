@@ -1,7 +1,8 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 
-import { token } from './token';
+
 import { profile } from './profile'
+import { token } from './token'
 
 export const store = configureStore({
   reducer: {

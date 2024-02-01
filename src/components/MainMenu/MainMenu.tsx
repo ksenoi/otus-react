@@ -1,12 +1,20 @@
 import { Menu, MenuProps } from 'antd';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { TOKEN_KEY, storage } from 'src/client/storahe';
 import { tokenSelectors } from 'src/store/token';
 
-export const MainMenu: FC = () => {
-  const token = useSelector(tokenSelectors.get);
 
+export const MainMenu: FC = () => {
+  //const token = storage.get(TOKEN_KEY);
+
+
+  const token = useSelector(tokenSelectors.get);
+  const location = useLocation();
+
+
+  
   const profileLink = {
     label: <Link to="/profile">Профиль</Link>,
     key: 'profile',

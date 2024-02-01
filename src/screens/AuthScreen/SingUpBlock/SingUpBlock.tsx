@@ -2,7 +2,7 @@ import React, { memo, useEffect, useMemo } from 'react';
 import { Alert, Button, Checkbox, Form, Input } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { singUpTokenThunk, tokenActions, tokenSelectors } from 'src/store/token';
+
 import { RootDispatch } from 'src/store';
 import { SignInBody, SignUpBody } from 'src/server.types';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -15,22 +15,22 @@ export const SingUpBlock = () => {
   const dispatch: RootDispatch = useDispatch();
 
 
-  const token = useSelector(tokenSelectors.get)
-  const error = useSelector(tokenSelectors.error)
-  console.log('token:', token);
+  //const token = useSelector(tokenSelectors.get)
+  //const error = useSelector(tokenSelectors.error)
+  
 
   //const onSubmit:SubmitHandler<SignInBody> = (credential:SignInBody)=>dispatch(singInTokenThunk(credential));
 
   //const {register,handleSubmit,formState: { errors } } = useForm();
 
   const onFinish = (credential: SignInBody) => {
-    console.log('Success:', credential);
+    //console.log('Success:', credential);
 
-    dispatch(singUpTokenThunk({ ...credential, commandId: "otus_team_110" }))
+    //dispatch(singUpTokenThunk({ ...credential, commandId: "otus_team_110" }))
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
+    //console.log('Failed:', errorInfo);
   };
 
   
@@ -69,7 +69,7 @@ export const SingUpBlock = () => {
           Зарегестрироваться
         </Button>
       </Form.Item>
-      {error && <Alert message="Error" type="error" showIcon description={error} />}
+      
 
     </Form>
 

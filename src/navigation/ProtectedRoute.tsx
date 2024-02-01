@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
-import { tokenSelectors } from 'src/store/token';
-import { RootState } from '../store';
 import { NavigationState } from './types';
+import { TOKEN_KEY, storage } from 'src/client/storahe';
 
 export const ProtectedRoute: FC<{ children: React.ReactNode }> = ({ children }) => {
-  const token = useSelector<RootState, RootState['token']>(tokenSelectors.get);
+  const token = storage.get(TOKEN_KEY);
+  //console.log("ProtectedRoute token=",{token})
   const location = useLocation();
+  //console.log("ProtectedRoute location=",{location})
   if (token) return <>{children}</>;
   return <Navigate to="/auth" state={{ from: location } as NavigationState} replace />;
 };

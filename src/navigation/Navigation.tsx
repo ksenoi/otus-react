@@ -22,7 +22,7 @@ export const Navigation: FC = () => {
       <Route path="auth/*" element={<AuthScreen />}>
         <Route path=":mode" element={<AuthScreen />} />
       </Route>
-      <Route path="*" element={<Main />} />
+      
       <Route
         path="*"
         element={

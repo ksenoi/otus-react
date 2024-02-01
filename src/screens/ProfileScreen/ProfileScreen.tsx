@@ -3,12 +3,16 @@ import React from 'react';
 import { useDispatch, useSelector } from "react-redux"
 import { Profile } from "src/server.types";
 import { RootDispatch } from 'src/store';
-import { tokenActions, tokenSelectors } from "src/store/token"
+//import { tokenActions, tokenSelectors } from "src/store/token"
+import { TOKEN_KEY, storage } from 'src/client/storahe';
+import { tokenActions } from 'src/store/token';
+import { useNavigate } from 'react-router-dom';
+import { useCustomFetch } from 'src/client/myCustomFetch';
 
 
 export const ProfileScreen = () => {
 
-    const profile: Profile = useSelector(tokenSelectors.getPofile);
+    
 
     const onFinish = (profile: Profile) => {
         console.log('Success:', profile);
@@ -18,20 +22,33 @@ export const ProfileScreen = () => {
 
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
-    };
+    };``
+
+    const navigate = useNavigate();
 
     const dispatch: RootDispatch = useDispatch();
-    const onClickExit = () => dispatch(tokenActions.logout());
+    const onClickExit = () => {
+        dispatch(tokenActions.logout());
+        storage.remove(TOKEN_KEY);
+        navigate("/auth");
+    };
+
+    const {data, loading, error} = useCustomFetch<Profile>('profile');
+
+    console.log(data);
+    console.log({error});
 
 
     return (
-
+        error?<Form><Alert message="Error" type="error" showIcon description={error} /></Form>:
+        data?<div>
+        
         <Form
             name="basic"
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
             style={{ maxWidth: 600 }}
-            initialValues={profile}
+            initialValues={data}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
@@ -39,9 +56,9 @@ export const ProfileScreen = () => {
             <Form.Item<Profile>
                 label="Имя"
                 name="name"
-                rules={[{ required: true, message: 'Введите email!' }]}
+                rules={[{ required: true, message: 'Введите Имя!' }]}
             >
-                <Input disabled={true}
+                <Input disabled={true}  value={data.name}
                 />
             </Form.Item>
 
@@ -50,15 +67,15 @@ export const ProfileScreen = () => {
                 name="email"
                 rules={[{ required: true, message: 'Введите email!' }]}
             >
-                <Input disabled={true} />
+                <Input disabled={true} value={data.email}/>
             </Form.Item>
 
             <Form.Item<Profile>
                 label="Дата регистрации"
                 name="signUpDate"
-                rules={[{ required: true, message: 'Введите email!' }]}
+                rules={[{ required: true, message: 'Введите дату регистрации!' }]}
             >
-                <Input disabled={true} />
+                <Input disabled={true}  />
             </Form.Item>
 
             <Form.Item<Profile>
@@ -67,7 +84,7 @@ export const ProfileScreen = () => {
                 rules={[{ required: true, message: 'Введите email!' }]}
             >
                 <Input
-                    disabled={true} />
+                    disabled={true} value={data.commandId}/>
             </Form.Item>
 
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
@@ -75,13 +92,11 @@ export const ProfileScreen = () => {
                     Выйти
                 </Button>
             </Form.Item>
-
-
-
-
-
-
-        </Form>
+        </Form></div>
+        :<Form><Alert message="Загрузка"
+        description="Загрузка"
+        type="info"
+        showIcon /></Form>
 
     );
 };

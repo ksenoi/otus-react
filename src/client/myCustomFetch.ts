@@ -1,5 +1,7 @@
 import { URL } from './config';
 import React, { useState, useEffect, useCallback, useRef} from 'react';
+import { TOKEN_KEY, storage } from './storahe';
+import { useSelector } from 'react-redux';
 
 export const useLazyCustomFetch = <T extends unknown>(): [(input: string, init?: RequestInit) 
   => () => void, {data: T, loading: boolean, error: unknown}] => {
@@ -52,11 +54,17 @@ export const useCustomFetch = <T extends unknown>(input: string, init?: RequestI
   return {data, loading, error};
 }
 
-export const myCustomFetch = <T = Response>(input: string, init?: RequestInit): Promise<T> =>
-  fetch(`${URL}${input}`, init).then(async (res) => {
+export const myCustomFetch = <T = Response>(input: string, init?: RequestInit): Promise<T> =>{
+
+  const token = storage.get(TOKEN_KEY);
+  const headers = init?init.headers:{};
+  return fetch(`${URL}${input}`, {...init,headers: {
+    ...headers,
+    authorization: token ? `Bearer ${token}` : '',
+  }}).then(async (res) => {
     if (res.status === 200) return res.json();
     return Promise.reject(await res.json());
-  });
+  });}
 
 export const myCustomXHR = <T = Response>(
   body: FormData,

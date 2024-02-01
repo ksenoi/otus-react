@@ -14,10 +14,10 @@ export type Profile = {
   name: string;
   email: string;
   signUpDate: Date;
-  commandId: String;
+  commandId: string;
 };
 
 export type Token = {
-  token:String;
+  token:string;
   profile: Profile;
 }
