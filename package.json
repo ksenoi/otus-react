@@ -1,13 +1,13 @@
 {
   "name": "react-start-template",
-  "homepage": "https://ksenoi.github.io/otus-react/",
+  "homepage": "http://ksenoi.github.io/otus-react/",
   "version": "1.0.0",
   "description": "Start repo with required configuration",
   "main": "src/index.tsx",
   "author": "Igor <spirit-drive@yandex.ru>",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d dist",
     "start": "webpack serve --mode development",
     "build": "webpack --mode production",
     "test": "jest src",
