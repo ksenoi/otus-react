@@ -3,12 +3,14 @@ import './HomeContent.scss';
 import { Product } from 'src/components/Product/types';
 import { ProductTile } from 'src/components/Product/ProductTile';
 import { ProductSortingBox } from 'src/components/ProductSortingBox/ProductSortingBox';
+import { useDispatch } from 'react-redux';
 
 type HomeContentProps = {
   products: Product[]
 }
 
 export const HomeContent = memo<HomeContentProps>(({products}) => {
+  
   return (
     <div>
        <ProductSortingBox/>

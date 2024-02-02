@@ -1,12 +1,20 @@
-import React, { FC, memo } from 'react'
+import React, { FC, memo, useEffect } from 'react'
 import './ProductTile.scss'
 import { Product } from './types';
+import { useDispatch, useSelector } from 'react-redux';
+import { orderActions, orderSelectors } from 'src/store/order';
+import { RootState } from 'src/store';
 
 type ProductTileProps = {
   product: Product;
 }
 
 export const ProductTile: FC<ProductTileProps> = memo(({product}) => {
+  const dispatcher = useDispatch();
+  const idInOrder = useSelector((state:RootState)=>orderSelectors.find(state,product.id));
+  console.log({idInOrder});
+  
+  useEffect(()=>{},[idInOrder])
   return (
     <div className='productshort'>
         <div className='productshort__imgBox'>
@@ -26,7 +34,8 @@ export const ProductTile: FC<ProductTileProps> = memo(({product}) => {
               {product.price} Р
             </div>
             <div className='productshort__button'>
-              {/* <ButtonAddToCart count={0}></ButtonAddToCart> */}
+                {idInOrder?<button type='button' onClick={()=>dispatcher(orderActions.remove(product.id))}>Удалить из корзины</button>:
+                <button type='button' onClick={()=>dispatcher(orderActions.add(product.id))}>Добавить в корзину</button>}
             </div>
           </div>
         </div>

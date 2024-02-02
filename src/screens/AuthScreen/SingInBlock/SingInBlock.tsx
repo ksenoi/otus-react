@@ -22,7 +22,7 @@ export const SingInBlock = () => {
   const [token, setToken] = useState(storage.get(TOKEN_KEY));
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  //console.log('1 token:', token);
+  console.log(error);
   const dispatch = useDispatch();
 
   const onFinish = (credential: SignInBody) => {
@@ -88,7 +88,12 @@ export const SingInBlock = () => {
         <Form.Item<SignInBody>
           label="Email"
           name="email"
-          rules={[{ required: true, message: 'Введите email!' }]}
+          rules={[{ 
+            required: true,
+            type: "email",
+            message: "Введите валидный  E-mail!"
+            
+          }]}
         >
           <Input />
         </Form.Item>
@@ -96,7 +101,8 @@ export const SingInBlock = () => {
         <Form.Item<SignInBody>
           label="Password"
           name="password"
-          rules={[{ required: true, message: 'Введите пароль!' }]}
+          rules={[{ required: true, 
+            message: 'Введите пароль!' }]}
         >
           <Input.Password />
         </Form.Item>
@@ -107,7 +113,7 @@ export const SingInBlock = () => {
             Войти
           </Button>
         </Form.Item>
-        {error && <Alert message="Error" type="error" showIcon description={error} />}
+        {error && <Alert message="Error" type="error" showIcon description={error.errors[0].message} />}
 
       </Form>
 
