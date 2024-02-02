@@ -95,8 +95,9 @@ export const SingUpBlock = () => {
         </Button>
       </Form.Item>
       
-
+      {error && <Alert message="Error" type="error" showIcon description={error.errors[0].message} />}
     </Form>
+    
 
   );
 };
