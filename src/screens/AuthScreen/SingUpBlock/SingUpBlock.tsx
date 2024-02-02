@@ -75,7 +75,12 @@ export const SingUpBlock = () => {
       <Form.Item<SignInBody>
         label="Email"
         name="email"
-        rules={[{ required: true, message: 'Введите email!' }]}
+        rules={[{ 
+          required: true,
+          type: "email",
+          message: "Введите валидный  E-mail!"
+          
+        }]}
       >
         <Input />
       </Form.Item>
@@ -91,7 +96,7 @@ export const SingUpBlock = () => {
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">
-          Зарегестрироваться()
+          Зарегестрироваться
         </Button>
       </Form.Item>
       
