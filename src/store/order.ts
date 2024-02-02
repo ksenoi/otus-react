@@ -21,7 +21,7 @@ export const orderSlice = createSlice({
     },
     remove: (state, action: PayloadAction<string>) => {
       console.log(state);
-      state.products = state.products.filter((p: string)=>p===action.payload)
+      state.products = state.products.filter((p: string)=>p!==action.payload)
     },
   },
 });
