@@ -30,8 +30,8 @@ export const MainMenu: FC = () => {
       key: 'home',
     },
     {
-      label: <Link to="/category">Категории</Link>,
-      key: 'category',
+      label: <Link to="/categories">Категории</Link>,
+      key: 'categories',
     },
     {
       label: <Link to="/admin">Админ</Link>,
