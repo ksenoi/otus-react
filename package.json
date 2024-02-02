@@ -1,6 +1,6 @@
 {
   "name": "react-start-template",
-  "homepage": "http://ksenoi.github.io/otus-react/",
+  "homepage": "https://ksenoi.github.io/otus-react/",
   "version": "1.0.0",
   "description": "Start repo with required configuration",
   "main": "src/index.tsx",
