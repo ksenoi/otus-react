@@ -9,15 +9,10 @@ import { TOKEN_KEY, storage } from 'src/client/storahe';
 import { useDispatch } from 'react-redux';
 import { tokenActions } from 'src/store/token';
 
-
-
-
-
-
 export const SingInBlock = () => {
 
-
-  const [credential, setCredential] = useState<SignInBody>();
+//add profile
+//  const [credential, setCredential] = useState<SignInBody>();
 
   const [token, setToken] = useState(storage.get(TOKEN_KEY));
   const [loading, setLoading] = useState(false);
@@ -26,30 +21,41 @@ export const SingInBlock = () => {
   const dispatch = useDispatch();
 
   const onFinish = (credential: SignInBody) => {
-   // console.log('Success:', credential);
-    setCredential(credential);
 
+    setLoading(true);
+    myCustomFetch<Token>('signin',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(credential)
+      })
+      .then(x => {
+        setToken(x.token)
+        navigate((location.state as NavigationState)?.from || '/');
+      }) //dispatch, setProfile
+      .finally(() => setLoading(false))
+      .catch(e => setError(e))
   };
 
-  useEffect(() => {
-    //console.log('useEffect:', credential);
+  // useEffect(() => {
+  //   //console.log('useEffect:', credential);
     
-    if (!token&&credential) {
+  //   if (!token&&credential) {
 
-      //console.log('useEffect2:', credential);
-      setLoading(true);
-      myCustomFetch<Token>('signin',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(credential)
-        })
-        .then(x => setToken(x.token))
-        .finally(() => setLoading(false))
-        .catch(e => setError(e))
-      //console.log("onFinish");
-    }
-  }, [credential]);
+  //     //console.log('useEffect2:', credential);
+  //     setLoading(true);
+  //     myCustomFetch<Token>('signin',
+  //       {
+  //         method: 'POST',
+  //         headers: { 'Content-Type': 'application/json' },
+  //         body: JSON.stringify(credential)
+  //       })
+  //       .then(x => setToken(x.token))
+  //       .finally(() => setLoading(false))
+  //       .catch(e => setError(e))
+  //     //console.log("onFinish");
+  //   }
+  // }, [credential]);
 
 
   const onFinishFailed = (errorInfo: any) => {
@@ -60,18 +66,18 @@ export const SingInBlock = () => {
   const location = useLocation();
 
 
-  useEffect(() => {
-    //console.log("tokenuseEffect", token);
-    //console.log("tokenuseEffect2", location.state);
-    if (token!==null) {
+  // useEffect(() => {
+  //   //console.log("tokenuseEffect", token);
+  //   //console.log("tokenuseEffect2", location.state);
+  //   if (token!==null) {
       
-      storage.set(TOKEN_KEY, token);
-      dispatch(tokenActions.set(token));
-      token && navigate((location.state as NavigationState)?.from || '/');
+  //     storage.set(TOKEN_KEY, token);
+  //     dispatch(tokenActions.set(token));
+  //     token && navigate((location.state as NavigationState)?.from || '/');
       
-    }
+  //   }
 
-  }, [token])
+  // }, [token])
 
   return (
     token ? <div>Выйти</div> :
