@@ -1,13 +1,13 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 
 
-import { profile } from './profile'
+import { order } from './order'
 import { token } from './token'
 
 export const store = configureStore({
   reducer: {
     token,
-    profile,
+    order,
     
   },
   middleware: (getDefaultMiddleware) =>
