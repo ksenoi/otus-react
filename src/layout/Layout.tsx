@@ -1,14 +1,16 @@
-import React, { FC } from 'react';
-import { Header } from '../components/Header/Header';
-import s from './Layout.sass';
+import React, { FC, ReactNode } from 'react';
+import { Layout as AntdLayout } from 'antd';
+import MainMenu from '../components/MainMenu/MainMenu';
 
-export type LayoutProps = {
-  children: React.ReactNode;
-};
+type Props = {
+  children : ReactNode;
+}
 
-export const Layout: FC<LayoutProps> = ({ children }) => (
-  <div className={s.root}>
-    <Header className={s.header} />
+export const Layout  = ({ children } : Props) => (
+  <AntdLayout>
+    <AntdLayout.Header>
+      <MainMenu/>
+    </AntdLayout.Header>
     {children}
-  </div>
+  </AntdLayout>
 );
