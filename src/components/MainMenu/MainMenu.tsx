@@ -8,8 +8,6 @@ export const MainMenu = () => {
 
   const token = useSelector(tokenSelectors.get);
   
-  console.log(token)
-
   const profileLink = {
     label: <Link to="/profile">Профиль</Link>,
     key: 'profile',

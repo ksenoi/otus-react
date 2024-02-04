@@ -11,8 +11,8 @@ type ProductTileButtonProps = {
 export const ProductTileButton: FC<ProductTileButtonProps> = ({id, handleClick}) => {
   const idInOrder = useSelector((state:RootState)=>orderSelectors.find(state, id));
 
-  console.log('ProductTileButton ' + id);
-  console.log('ProductTileButton idInOrder ' + idInOrder);
+  // console.log('ProductTileButton ' + id);
+  // console.log('ProductTileButton idInOrder ' + idInOrder);
 
   return (
     <div className='product-tile-button'>

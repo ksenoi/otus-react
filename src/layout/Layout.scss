@@ -4,3 +4,14 @@
   left: 0;
   z-index: 3;
 }
+
+.layout {
+  min-height: 100%;
+}
+
+.content {
+  margin: 0 auto;
+  min-width: 1140px;
+  max-width: 1140px;
+  padding: 50px;
+}
