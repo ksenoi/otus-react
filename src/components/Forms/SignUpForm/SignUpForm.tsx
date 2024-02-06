@@ -1,8 +1,8 @@
 import React, {  useEffect, useState } from 'react';
 import { Alert, Form, Input, Space } from 'antd';
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useLocation } from 'react-router-dom';
-import { tokenActions } from 'src/store/token';
+import { tokenActions, tokenSelectors } from 'src/store/token';
 import { TOKEN_KEY, storage } from 'src/client/storahe';
 import { SubmitButton } from "src/components/SubmitButton/SubmitButton";
 import { validateMessages, formLayout } from './constants';
@@ -16,20 +16,19 @@ const FormItem = Form.Item;
 export const SignUpForm = () => {
   const [form] = Form.useForm();
   const dispatch: RootDispatch = useDispatch();
-  const [token, setToken] = useState(storage.get(TOKEN_KEY));
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const { token, error } = useSelector(tokenSelectors.get);
 
   const onFinish = (credential: SignInBody) => {
+    dispatch(tokenActions.loading());
     myCustomFetch<Token>('signup',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ ...credential, commandId: "otus_team_110" })
         })
-        .then(x => setToken(x.token))
-        .finally(() => setLoading(false))
-        .catch(e => setError(e))
+        .then(x => {dispatch(tokenActions.set(x.token));
+        storage.set(TOKEN_KEY, x.token);})
+        .catch(e => dispatch(tokenActions.error(e)))
   };
 
   const navigate = useNavigate();

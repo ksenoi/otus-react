@@ -34,8 +34,8 @@ export const ProfileForm = ( {data} : ProfileFormProps) => {
   const dispatch: RootDispatch = useDispatch();
 
   const onClickExit = () => {
-    dispatch(tokenActions.logout());
     storage.remove(TOKEN_KEY);
+    dispatch(tokenActions.logout());
     navigate("/auth");
   };
 

@@ -1,13 +1,13 @@
 import { Menu, MenuProps } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { tokenSelectors } from 'src/store/token';
 
 export const MainMenu = () => {
 
-  const token = useSelector(tokenSelectors.get);
-  
+  const {token} = useSelector(tokenSelectors.get);
+    
   const profileLink = {
     label: <Link to="/profile">Профиль</Link>,
     key: 'profile',
