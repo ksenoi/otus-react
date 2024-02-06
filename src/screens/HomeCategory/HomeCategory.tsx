@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
 import './HomeCategory.scss';
-import { List } from 'src/components/List/List';
+import { List, Avatar } from 'antd';
 import { Category } from 'src/components/Category/types';
 
 type HomeCategoryProps = {
@@ -15,11 +15,18 @@ export const HomeCategory = memo<HomeCategoryProps>(({data, handleCategory}) => 
     <div>
        <h2>Категории</h2>
        <hr/>
-       <List>
-        {
-          data.map((item, index) => 
-          <li className='category' key={index} onClick={() => handleCategory(item)}>{item.name}</li>)}
-       </List>
+       <List
+          itemLayout="horizontal"
+          dataSource={data}
+          renderItem={(item, index) => (
+            <List.Item onClick={() => handleCategory(item)}>
+              <List.Item.Meta
+                avatar={<Avatar src={item.photo} />}
+                title={item.name}
+              />
+            </List.Item>
+          )}
+        />
     </div>
   );
 });

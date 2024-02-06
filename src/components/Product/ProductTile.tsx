@@ -17,11 +17,11 @@ export const ProductTile: FC<ProductTileProps> = memo(({product}) => {
     ? dispatcher(orderActions.remove(product.id), [idInOrder])
     : dispatcher(orderActions.add(product.id), [idInOrder])
   });
-
+console.log(product.photo)
   return (
     <div className='productshort'>
         <div className='productshort__imgBox'>
-          <img className='productshort__image' src={`${product.photo}`} alt={product.name} />
+        <img className='productshort__image' src={`${product.photo}`} alt={product.name} />
         </div>
         <div className='productshort__body'>
           <div className='productshort__content'>

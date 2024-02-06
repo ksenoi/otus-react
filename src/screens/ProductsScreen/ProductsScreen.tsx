@@ -1,10 +1,11 @@
 import React from 'react';
+import { ProductsCreate } from 'src/components/ProductCreate/ProductCreate';
 
 export const ProductsScreen = () => {
  
   return (
-    <div>
-      Товары
+    <div className='products'>
+      <ProductsCreate/>
     </div>
   );
 };
