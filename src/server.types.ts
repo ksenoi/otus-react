@@ -10,11 +10,11 @@ export type SignUpBody = SignInBody & {
 };
 
 export type Profile = {
-  id: string;
-  name: string;
-  email: string;
-  signUpDate: Date;
-  commandId: string;
+  id?: string;
+  name?: string;
+  email?: string;
+  signUpDate?: Date;
+  commandId?: string;
 };
 
 export type Token = {

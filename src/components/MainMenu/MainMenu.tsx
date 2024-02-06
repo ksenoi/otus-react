@@ -1,19 +1,12 @@
 import { Menu, MenuProps } from 'antd';
-import React, { FC, useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
-import { TOKEN_KEY, storage } from 'src/client/storahe';
+import { Link } from 'react-router-dom';
 import { tokenSelectors } from 'src/store/token';
 
-
-export const MainMenu: FC = () => {
-  //const token = storage.get(TOKEN_KEY);
-
+export const MainMenu = () => {
 
   const token = useSelector(tokenSelectors.get);
-  const location = useLocation();
-
-
   
   const profileLink = {
     label: <Link to="/profile">Профиль</Link>,
@@ -26,7 +19,7 @@ export const MainMenu: FC = () => {
 
   const items: MenuProps['items'] = [
     {
-      label: <Link to="/">Домой</Link>,
+      label: <Link to="/">Главная</Link>,
       key: 'home',
     },
     {
@@ -34,8 +27,12 @@ export const MainMenu: FC = () => {
       key: 'categories',
     },
     {
-      label: <Link to="/admin">Админ</Link>,
-      key: 'admin',
+      label: <Link to="/products">Товары</Link>,
+      key: 'products',
+    },
+    {
+      label: <Link to="/orders">Заказы</Link>,
+      key: 'orders',
     },
     token ? profileLink : authLink,
   ];

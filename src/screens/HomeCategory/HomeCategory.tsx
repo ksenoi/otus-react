@@ -13,7 +13,7 @@ export const HomeCategory = memo<HomeCategoryProps>(({data, handleCategory}) => 
 
   return (
     <div>
-       <h2>Категории товаров</h2>
+       <h2>Категории</h2>
        <hr/>
        <List>
         {

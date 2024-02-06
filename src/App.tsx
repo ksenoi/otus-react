@@ -1,35 +1,21 @@
 import React from 'react';
-
 import './App.scss';
 import { Navigation } from './navigation/Navigation';
-import { Layout, Menu, MenuProps } from 'antd'
-
 import { BrowserRouter, Link } from 'react-router-dom';
-import MainMenu from './components/MainMenu/MainMenu';
 import { Provider } from 'react-redux';
 import { store } from './store';
 
-
-
-const { Header, Content, Footer } = Layout;
-
-
+import { Layout } from './layout/Layout'
 
 function App() {
   return (
-
     <BrowserRouter>
       <Provider store={store}>
         <Layout>
-          <Header><MainMenu /></Header>
-          <Content><Navigation /> </Content>
-          <Footer>footer</Footer>
-        </Layout>
+          <Navigation />
+        </Layout>        
       </Provider>
     </BrowserRouter>
-
-
-
   );
 }
 
