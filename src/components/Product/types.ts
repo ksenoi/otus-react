@@ -1,8 +1,8 @@
 import { Category } from "../Category/types";
 
 export type Product = {
-  id: string;
-  name?: string;
+  id?: string;
+  name: string;
   photo?: string;
   desc?: string;
   createdAt: Date;
@@ -10,6 +10,7 @@ export type Product = {
   oldPrice?: number;
   price: number;
   category: Category;
+  categoryId?: string;
 };
 
 export type ProductsResponse = {

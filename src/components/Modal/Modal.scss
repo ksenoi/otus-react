@@ -1,0 +1,32 @@
+.details-modal-overlay {
+  position:absolute;
+  left:0;
+  top:0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background: rgba(0, 0, 0, .5);
+  transition: opacity 0.2s ease-out;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.details-modal {
+  background: #ffffff;
+  border-radius: 0.5em;
+  box-shadow: 0 10px 20px rgba(black, 0.2);
+  left: 50%;
+  max-width: 90%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 30em;
+  text-align: left;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  flex-direction: column;
+  padding: 24px;
+}
