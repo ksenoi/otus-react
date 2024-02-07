@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import "./CategoryModal.scss"
 import { Category } from 'src/components/Category/types';
+import { Button, Form, Input } from 'antd';
 
 type Props = {
   isShow: boolean;
@@ -27,18 +28,26 @@ export const CategoryModal = ({ isShow, category, onClose, onSave, onDelete }: P
       }}
     >
       <div className="details-modal">
-        <input value={data.name} onChange={handleChangeName}/>
+        <Form>
+        <Input value={data.name} onChange={handleChangeName}/>
         <div>
-          <button onClick={() => {
-            onSave(data);
-            onClose();
-          }}>Сохранить</button>
-          <button onClick={() => {
-            onDelete(data);
-            onClose();
-          }}>Удалить</button>
-          <button onClick={onClose}>Закрыть</button>
+          <Button onClick={() => {
+              onSave(data);
+              onClose();
+            }}>
+            Сохранить
+          </Button>
+          <Button onClick={() => {
+              onDelete(data);
+              onClose();
+            }}>
+              Удалить
+          </Button>
+          <Button onClick={onClose}>
+              Закрыть
+          </Button>
         </div>
+        </Form>
       </div>
     </div>
   );
