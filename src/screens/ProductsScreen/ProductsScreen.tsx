@@ -11,48 +11,53 @@ import { CreateProduct, DeleteProduct, UpdateProduct } from 'src/services/produc
 export const ProductsScreen = () => {
   const [visible, setVisible] = useState(false);
   const [product, setProduct] = useState<Product>()
+  const [productData, setProductData] = useState<Product[]>()
 
-  const {data, loading, error} = useCustomFetch<CategoriesResponse>('categories');
+  const {data: categoryData, loading: categoryLoading, error: categoryError} = useCustomFetch<CategoriesResponse>('categories');
 
-  const handleUpdate = (data: Product) => {
-    if (!data.id) {
-      CreateProduct(data);
+  const getProducts = () => {
+    return myCustomFetch<ProductsResponse>('products').then(p => setProductData(p?.data))
+  }
+  
+  const handleProductCreate = () => {
+    setVisible(true);
+  }
+
+  const handleUpdate = (value: Product) => {
+    if (!value.id) {
+      CreateProduct(value);
     }
     else {
-      UpdateProduct(data);
+      UpdateProduct(value);
     }
-    setProduct(data);
     setVisible(false);
+    setProduct(value);
   };
 
-  const handleProductDelete = (data: Product) => {
-    DeleteProduct(data);
-    setProduct(data);
+  const handleProductDelete = (value: Product) => {
+    DeleteProduct(value);
+    setProduct(value);
   }
 
-  const handleProductCreate = () => {
-    setProduct(null);
+  const handleProductEdit = (value: Product) => {
+    setProduct(value);
     setVisible(true);
   }
-  const handleProductEdit = (data: Product) => {
-    setProduct(data);
-    setVisible(true);
-  }
+  
+  useEffect(() => {
+    getProducts();
+  }, [product])
 
-  const [getProducts, {data: productData, loading: productLoading, error: productError}] = useLazyCustomFetch<ProductsResponse>();
-    useEffect(() => {
-      getProducts('products')
-  }, [product, getProducts]);
-
+  console.log(1);
   return (
     <div className='products'>
       <div className={'products-create'}>
         <Button type="default" onClick={handleProductCreate}>Создать</Button>
       </div>
       <Divider />
-      <ProductsUpdatable products={productData?.data} handleItemDelete={handleProductDelete} handleItemEdit={handleProductEdit}/>
+      <ProductsUpdatable products={productData} handleItemDelete={handleProductDelete} handleItemEdit={handleProductEdit}/>
       <Modal visible={visible} setVisible={setVisible} title="Создание товара">
-        <ProductForm categories={data?.data} data={product} onSubmit={handleUpdate} />  
+        <ProductForm categories={categoryData?.data} data={product} onSubmit={handleUpdate} />  
       </Modal> 
     </div>
   );

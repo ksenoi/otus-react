@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import "./ProductForm.scss"
 import { SubmitButton } from 'src/components/SubmitButton/SubmitButton';
 import { Form, Input, InputNumber, Select } from 'antd';
-import { formLayout } from './constants';
+import { formLayout, validateMessages } from './constants';
 import { Category } from 'src/components/Category/types';
 import { Product } from 'src/components/Product/types';
 
@@ -14,6 +14,14 @@ type Props = {
   onSubmit: (product: Product) => void
 }
 
+const validateCyrilicLetters = (_: any, value: string ) => {
+  const regExpression = /^[а-яА-Я1-9 ]*$/; 
+  if (regExpression.test(value)) {
+    return Promise.resolve();
+  }
+  return Promise.reject(new Error('${label} содержит недопустимое значение'));
+};
+
 export const ProductForm = ({data, categories, onSubmit} : Props) => {
   const [form] = Form.useForm();
   const product: Product = data || {name: '', price: 0, category: {id : '', name: ''}, categoryId: ''};
@@ -21,13 +29,14 @@ export const ProductForm = ({data, categories, onSubmit} : Props) => {
   const onCategoryChange = (value: string) => {
     product.category.id = value;
   }
-
+  
   return (
     <Form className='form'
     {...formLayout}
     form={form} 
     name='product-form'
-    initialValues={product} 
+    initialValues={product}
+    validateMessages={validateMessages}
     onFinish={onSubmit}
     autoComplete='off'
   >
@@ -38,6 +47,7 @@ export const ProductForm = ({data, categories, onSubmit} : Props) => {
       { required: true}, 
       { min: 3 },
       { max: 32 },
+      { validator: validateCyrilicLetters }
     ]}
   >
     <Input placeholder='Введите наименование товара' value={data?.name}/> 
@@ -45,14 +55,14 @@ export const ProductForm = ({data, categories, onSubmit} : Props) => {
   <Form.Item
       label='Категория'
       name='categoryId'
-      valuePropName='categoryId'
+      valuePropName='category'
       rules={[
-        { required: true}, 
+        { required: true} 
       ]}
   >
     <Select
           placeholder="Выберите категорию"
-          defaultValue={data && categories.at(categories.findIndex((x) => x.id === product.category.id)).id}
+           defaultValue={data && categories.at(categories.findIndex((x) => x.id === product.category.id)).id}
           onChange={onCategoryChange}
           allowClear
         >
@@ -76,7 +86,7 @@ export const ProductForm = ({data, categories, onSubmit} : Props) => {
       name='price'
       rules={[
         { required: true}, 
-        { type: 'number' },
+        { type: 'number' , min: 1},
       ]}
   >
     <InputNumber value={data?.oldPrice}/> 
@@ -92,7 +102,6 @@ export const ProductForm = ({data, categories, onSubmit} : Props) => {
   </Form.Item>
   <Form.Item
       name='id'
-      valuePropName='id'
       hidden = {true}
   >
   </Form.Item>

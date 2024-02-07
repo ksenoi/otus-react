@@ -20,7 +20,7 @@ export const useLazyCustomFetch = <T extends unknown>(): [(input: string, init?:
       .finally(() => !controller.current.signal.aborted && setLoading(false))
       .catch(e => !controller.current.signal.aborted && setError(e))
     return () => {
-      controller.current.abort();
+       controller.current.abort();
     }}, []);
 
     useEffect(() => {
@@ -47,7 +47,7 @@ export const useCustomFetch = <T extends unknown>(input: string, init?: RequestI
       .finally(() => !controller.signal.aborted && setLoading(false))
       .catch(e => !controller.signal.aborted && setError(e))
     return () => {
-      controller.abort();
+       controller.abort();
     }
   }, []);
   

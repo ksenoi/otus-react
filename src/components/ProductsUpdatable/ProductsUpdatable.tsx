@@ -8,7 +8,7 @@ type HomeContentProps = {
   handleItemDelete: (product: Product) => void
 }
 
-export const ProductsUpdatable = memo<HomeContentProps>(({products, handleItemEdit, handleItemDelete}) => {
+export const ProductsUpdatable = ({products, handleItemEdit, handleItemDelete}: HomeContentProps) => {
     return (
        <List
           itemLayout="horizontal"
@@ -28,6 +28,6 @@ export const ProductsUpdatable = memo<HomeContentProps>(({products, handleItemEd
         )}
         />
   );
-});
+};
 
 ProductsUpdatable.displayName = 'ProductsUpdatable';
