@@ -28,7 +28,6 @@ export const HomeScreen = () => {
 
   useEffect(() => {
     getProducts(productsUrl)
-    console.log(productsUrl)
   }, [category, getProducts]);
 
   return (

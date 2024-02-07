@@ -1,3 +1,5 @@
+import { Category } from "../Category/types";
+
 export type Product = {
   id?: string;
   name: string;
@@ -5,7 +7,8 @@ export type Product = {
   desc?: string;
   oldPrice?: number;
   price: number;
-  categoryId: string;
+  category: Category;
+  categoryId?: string;
 };
 
 export type ProductsResponse = {

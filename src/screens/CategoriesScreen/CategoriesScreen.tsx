@@ -59,11 +59,11 @@ const CategoryScreen = () => {
        , document.body
        )}
        <h2>Работа с категориями</h2>
-       <button onClick={() => {
+       <Button onClick={() => {
           setCategory({name: 'Новая Категория', id: ''});
           setShowModal(true);
         }
-        }>Создать</button>
+        }>Создать</Button>
        <hr />
        <List>
         {

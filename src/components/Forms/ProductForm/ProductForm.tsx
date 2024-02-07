@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import "./ProductForm.scss"
 import { SubmitButton } from 'src/components/SubmitButton/SubmitButton';
 import { Form, Input, InputNumber, Select } from 'antd';
@@ -16,10 +16,10 @@ type Props = {
 
 export const ProductForm = ({data, categories, onSubmit} : Props) => {
   const [form] = Form.useForm();
-  const product: Product = data || {name: '', price: 0, categoryId: ''};
+  const product: Product = data || {name: '', price: 0, category: {id : '', name: ''}, categoryId: ''};
 
   const onCategoryChange = (value: string) => {
-    product.categoryId = value;
+    product.category.id = value;
   }
 
   return (
@@ -45,13 +45,14 @@ export const ProductForm = ({data, categories, onSubmit} : Props) => {
   <Form.Item
       label='Категория'
       name='categoryId'
-      valuePropName='category'
+      valuePropName='categoryId'
       rules={[
         { required: true}, 
       ]}
   >
     <Select
           placeholder="Выберите категорию"
+          defaultValue={data && categories.at(categories.findIndex((x) => x.id === product.category.id)).id}
           onChange={onCategoryChange}
           allowClear
         >
@@ -88,6 +89,12 @@ export const ProductForm = ({data, categories, onSubmit} : Props) => {
       ]}
   >
     <InputNumber value={data?.price}/> 
+  </Form.Item>
+  <Form.Item
+      name='id'
+      valuePropName='id'
+      hidden = {true}
+  >
   </Form.Item>
   <Form.Item wrapperCol={{ span: 24, offset: 6 }}>
       <SubmitButton form={form}>Сохранить</SubmitButton>

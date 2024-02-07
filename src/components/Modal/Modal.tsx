@@ -1,4 +1,4 @@
-import React, { Dispatch, ReactNode, useState } from 'react';
+import React, { Dispatch, ReactNode, memo, useState } from 'react';
 import "./Modal.scss"
 
 type Props = {
