@@ -12,6 +12,7 @@ export const ProductsScreen = () => {
   const [visible, setVisible] = useState(false);
   const [product, setProduct] = useState<Product>()
   const [productData, setProductData] = useState<Product[]>()
+  const [changed, setChanged] = useState(true)
 
   const {data: categoryData, loading: categoryLoading, error: categoryError} = useCustomFetch<CategoriesResponse>('categories');
 
@@ -30,13 +31,14 @@ export const ProductsScreen = () => {
     else {
       UpdateProduct(value);
     }
+    setChanged(!changed);
     setVisible(false);
-    setProduct(value);
   };
 
   const handleProductDelete = (value: Product) => {
     DeleteProduct(value);
-    setProduct(value);
+    setChanged(!changed);
+    setProduct(null);
   }
 
   const handleProductEdit = (value: Product) => {
@@ -46,7 +48,7 @@ export const ProductsScreen = () => {
   
   useEffect(() => {
     getProducts();
-  }, [product])
+  }, [changed])
 
   console.log(1);
   return (
