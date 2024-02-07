@@ -5,10 +5,12 @@ export type Product = {
   name: string;
   photo?: string;
   desc?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
   oldPrice?: number;
   price: number;
   category: Category;
-  categoryId?: string;
+  categoryId: string;
 };
 
 export type ProductsResponse = {
