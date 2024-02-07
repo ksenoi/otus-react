@@ -2,11 +2,13 @@ import { Menu, MenuProps } from 'antd';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { orderSelectors } from 'src/store/order';
 import { tokenSelectors } from 'src/store/token';
 
 export const MainMenu = () => {
 
   const {token} = useSelector(tokenSelectors.get);
+  const order = useSelector(orderSelectors.get);
     
   const profileLink = {
     label: <Link to="/profile">Профиль</Link>,
@@ -31,7 +33,7 @@ export const MainMenu = () => {
       key: 'products',
     },
     {
-      label: <Link to="/orders">Заказы</Link>,
+      label: <Link to="/orders">Заказы {order.products.length>0?'('+order.products.length+')':''} </Link>,
       key: 'orders',
     },
     token ? profileLink : authLink,
