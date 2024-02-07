@@ -1,0 +1,17 @@
+.form {
+  background: #ffffff;
+  border-radius: 0.5em;
+  box-shadow: 0 10px 20px rgba(black, 0.2);
+  left: 50%;
+  max-width: 90%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 50em;
+  text-align: left;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column; 
+  flex-direction: column;
+  padding: 24px;
+}
